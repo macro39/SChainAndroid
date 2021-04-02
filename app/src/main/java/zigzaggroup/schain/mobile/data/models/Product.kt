@@ -1,5 +1,6 @@
 package zigzaggroup.schain.mobile.data.models
 
+import java.io.Serializable
 import java.util.*
 
 data class Product(
@@ -13,4 +14,4 @@ data class Product(
     val updatedAt: Date,
     val props: List<Prop>,
     val subProducts: List<Product>
-)
+) : Serializable

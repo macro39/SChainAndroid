@@ -1,4 +1,4 @@
-package zigzaggroup.schain.mobile.ui
+package zigzaggroup.schain.mobile.utils
 
 import android.content.Context
 import android.net.ConnectivityManager

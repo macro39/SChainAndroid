@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="zigzaggroup.schain.mobile.ui.fragments.HomeFragment"
+        android:label="S-Chain"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragment_to_itemFragment"
+            app:destination="@id/itemFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/itemFragment"
+        android:name="zigzaggroup.schain.mobile.ui.fragments.ItemFragment"
+        tools:layout="@layout/fragment_item">
+        <argument
+            android:name="item"
+            app:argType="zigzaggroup.schain.mobile.data.models.Item" />
+        <action
+            android:id="@+id/action_itemFragment_to_itemHistoryFragment"
+            app:destination="@id/itemHistoryFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_itemFragment_self"
+            app:destination="@id/itemFragment"
+            app:enterAnim="@anim/slide_in_bottom"
+            app:exitAnim="@anim/slide_out_top"
+            app:popEnterAnim="@anim/slide_in_top"
+            app:popExitAnim="@anim/slide_out_bottom" />
+    </fragment>
+    <fragment
+        android:id="@+id/itemHistoryFragment"
+        android:name="zigzaggroup.schain.mobile.ui.fragments.ItemHistoryFragment"
+        tools:layout="@layout/fragment_item_history">
+        <argument
+            android:name="itemHistory"
+            app:argType="zigzaggroup.schain.mobile.data.models.ItemHistory" />
+    </fragment>
+</navigation>

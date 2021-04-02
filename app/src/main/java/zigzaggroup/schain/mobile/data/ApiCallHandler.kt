@@ -1,17 +1,18 @@
-package zigzaggroup.schain.mobile.main
+package zigzaggroup.schain.mobile.data
 
 import com.google.gson.Gson
 import retrofit2.Response
-import zigzaggroup.schain.mobile.data.ItemApi
 import zigzaggroup.schain.mobile.data.models.Error
 import zigzaggroup.schain.mobile.data.models.Item
 import zigzaggroup.schain.mobile.data.models.ItemHistory
 import zigzaggroup.schain.mobile.utils.Resource
 import javax.inject.Inject
+import javax.inject.Singleton
 
-class DefaultMainRepository @Inject constructor(
+@Singleton
+class ApiCallHandler @Inject constructor(
     private val api: ItemApi
-) : MainRepository {
+) {
 
     private fun <T> handleResponse(response: Response<T>): Resource<T> {
         return try {
@@ -36,11 +37,11 @@ class DefaultMainRepository @Inject constructor(
         }
     }
 
-    override suspend fun getItem(id: String): Resource<Item> {
+    suspend fun getItem(id: String): Resource<Item> {
         return handleResponse(api.getItem(id))
     }
 
-    override suspend fun getItemHistory(id: String): Resource<ItemHistory> {
+    suspend fun getItemHistory(id: String): Resource<ItemHistory> {
         return handleResponse(api.getItemHistory(id))
     }
 }

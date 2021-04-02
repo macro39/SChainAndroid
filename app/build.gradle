@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
+    id 'androidx.navigation.safeargs.kotlin'
 }
 
 android {
@@ -79,4 +80,8 @@ dependencies {
     // extensions
     implementation "com.github.FunkyMuse.KAHelpers:kotlinextensions:2.1.10"
     implementation "com.github.FunkyMuse.KAHelpers:security:2.1.10"
+
+    // navigation
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.4'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.3.4'
 }
