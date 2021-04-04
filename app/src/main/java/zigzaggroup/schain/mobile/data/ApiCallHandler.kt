@@ -5,7 +5,6 @@ import retrofit2.Response
 import zigzaggroup.schain.mobile.data.models.Error
 import zigzaggroup.schain.mobile.data.models.Item
 import zigzaggroup.schain.mobile.data.models.ItemHistory
-import zigzaggroup.schain.mobile.utils.Resource
 import javax.inject.Inject
 import javax.inject.Singleton
 

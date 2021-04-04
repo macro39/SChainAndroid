@@ -12,8 +12,12 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import zigzaggroup.schain.mobile.R
 import zigzaggroup.schain.mobile.data.ApiCallHandler
+import zigzaggroup.schain.mobile.data.Resource
 import zigzaggroup.schain.mobile.databinding.FragmentItemBinding
-import zigzaggroup.schain.mobile.utils.*
+import zigzaggroup.schain.mobile.utils.hide
+import zigzaggroup.schain.mobile.utils.show
+import zigzaggroup.schain.mobile.utils.title
+import zigzaggroup.schain.mobile.utils.toast
 import javax.inject.Inject
 
 @AndroidEntryPoint

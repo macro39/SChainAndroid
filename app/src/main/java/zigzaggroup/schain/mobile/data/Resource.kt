@@ -1,4 +1,4 @@
-package zigzaggroup.schain.mobile.utils
+package zigzaggroup.schain.mobile.data
 
 sealed class Resource<T>(val data: T?, val message: String?) {
     class Success<T>(data: T) : Resource<T>(data, null)

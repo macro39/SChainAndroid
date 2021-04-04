@@ -19,7 +19,7 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-    buildFeatures{
+    buildFeatures {
         viewBinding true
     }
     buildTypes {
@@ -84,4 +84,11 @@ dependencies {
     // navigation
     implementation 'androidx.navigation:navigation-fragment-ktx:2.3.4'
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.4'
+
+    // bar code scanner
+    implementation 'com.journeyapps:zxing-android-embedded:3.4.0'
+
+    // image picker
+    implementation 'com.github.dhaval2404:imagepicker-support:1.7.1'
+    implementation 'com.github.florent37:inline-activity-result-kotlin:1.0.4'
 }
