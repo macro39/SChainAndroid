@@ -23,9 +23,28 @@ android {
         viewBinding true
     }
     buildTypes {
+        debug {
+            buildConfigField "String", "API_BASE_URL", API_BASE_URL
+        }
+        local_emulator {
+            initWith(buildTypes.debug)
+            debuggable true
+            buildConfigField "String", "API_BASE_URL", API_BASE_URL_LOCAL_EMULATOR
+        }
+        local {
+            initWith(buildTypes.debug)
+            debuggable true
+            buildConfigField "String", "API_BASE_URL", API_BASE_URL_LOCAL
+        }
+        remote {
+            initWith(buildTypes.debug)
+            debuggable true
+            buildConfigField "String", "API_BASE_URL", API_BASE_URL
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "API_BASE_URL", API_BASE_URL
         }
     }
     compileOptions {
@@ -91,4 +110,10 @@ dependencies {
     // image picker
     implementation 'com.github.dhaval2404:imagepicker-support:1.7.1'
     implementation 'com.github.florent37:inline-activity-result-kotlin:1.0.4'
+
+    // timeline
+    implementation 'com.github.vipulasri:timelineview:1.1.5'
+
+    // clearable edit text
+    implementation 'com.github.Cielsk:clearable-edittext:0.0.5'
 }

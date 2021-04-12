@@ -27,6 +27,7 @@ import zigzaggroup.schain.mobile.utils.show
 import zigzaggroup.schain.mobile.utils.toast
 import java.util.*
 import javax.inject.Inject
+import kotlin.collections.set
 
 
 @AndroidEntryPoint
@@ -42,7 +43,13 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         binding = FragmentHomeBinding.bind(view)
 
         binding.btnSearchById.setOnClickListener {
-            getItem("1-bc46edd1-8768-4e7d-a3b7-d0ca3ae0055f")
+            val id = binding.etId.text ?: ""
+            if (id.isBlank()) {
+                requireContext().toast("Please, fill item id")
+                return@setOnClickListener
+            }
+
+            getItem(id.toString())
         }
 
         binding.btnScanQR.setOnClickListener {

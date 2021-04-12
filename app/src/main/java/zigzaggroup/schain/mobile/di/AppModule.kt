@@ -9,8 +9,9 @@ import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import timber.log.Timber
+import zigzaggroup.schain.mobile.BuildConfig
 import zigzaggroup.schain.mobile.data.ItemApi
-import zigzaggroup.schain.mobile.utils.Constants.Companion.BASE_URL
 import zigzaggroup.schain.mobile.utils.NetworkConnectionInterceptor
 import javax.inject.Singleton
 
@@ -25,8 +26,9 @@ object AppModule {
         val client = OkHttpClient.Builder()
             .addInterceptor(NetworkConnectionInterceptor(context))
 
+        Timber.d(BuildConfig.API_BASE_URL)
         return Retrofit.Builder()
-            .baseUrl(BASE_URL)
+            .baseUrl(BuildConfig.API_BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(client.build())
             .build()

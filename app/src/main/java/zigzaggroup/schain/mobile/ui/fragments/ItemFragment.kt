@@ -13,6 +13,7 @@ import kotlinx.coroutines.withContext
 import zigzaggroup.schain.mobile.R
 import zigzaggroup.schain.mobile.data.ApiCallHandler
 import zigzaggroup.schain.mobile.data.Resource
+import zigzaggroup.schain.mobile.data.models.Item
 import zigzaggroup.schain.mobile.databinding.FragmentItemBinding
 import zigzaggroup.schain.mobile.utils.hide
 import zigzaggroup.schain.mobile.utils.show
@@ -22,6 +23,8 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class ItemFragment : Fragment(R.layout.fragment_item) {
+
+    private lateinit var item: Item
 
     private lateinit var binding: FragmentItemBinding
 
@@ -34,12 +37,14 @@ class ItemFragment : Fragment(R.layout.fragment_item) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentItemBinding.bind(view)
 
-        activity?.title(args.item.product.name)
+        item = args.item
 
-        binding.tvResponse.text = args.item.id
+        activity?.title(item.product.name)
+
+        binding.tvResponse.text = item.id
 
         binding.btnShowHistory.setOnClickListener {
-            getHistory("1-bc46edd1-8768-4e7d-a3b7-d0ca3ae0055f")
+            getHistory(item.id)
         }
 
         binding.btnShowAnother.setOnClickListener {
