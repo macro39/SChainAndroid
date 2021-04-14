@@ -46,5 +46,21 @@
         <argument
             android:name="itemHistory"
             app:argType="zigzaggroup.schain.mobile.data.models.ItemHistory" />
+        <action
+            android:id="@+id/action_itemHistoryFragment_to_mapFragment"
+            app:destination="@id/mapFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="zigzaggroup.schain.mobile.ui.fragments.MapFragment"
+        android:label="Item history on map"
+        tools:layout="@layout/fragment_map">
+        <argument
+            android:name="itemHistory"
+            app:argType="zigzaggroup.schain.mobile.data.models.States" />
     </fragment>
 </navigation>

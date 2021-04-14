@@ -1,5 +1,7 @@
 package zigzaggroup.schain.mobile.data.models
 
-import java.io.Serializable
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 
-class ItemHistory : ArrayList<Item>(), Serializable
+@Parcelize
+class ItemHistory : ArrayList<Item>(), Parcelable

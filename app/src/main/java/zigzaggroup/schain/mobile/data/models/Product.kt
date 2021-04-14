@@ -1,8 +1,10 @@
 package zigzaggroup.schain.mobile.data.models
 
-import java.io.Serializable
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 import java.util.*
 
+@Parcelize
 data class Product(
     val id: Int,
     val name: String,
@@ -14,4 +16,4 @@ data class Product(
     val updatedAt: Date,
     val props: List<Prop>,
     val subProducts: List<Product>
-) : Serializable
+) : Parcelable
