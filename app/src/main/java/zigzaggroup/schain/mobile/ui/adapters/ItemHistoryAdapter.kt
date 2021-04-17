@@ -8,8 +8,7 @@ import com.github.vipulasri.timelineview.TimelineView
 import zigzaggroup.schain.mobile.R
 import zigzaggroup.schain.mobile.data.models.State
 import zigzaggroup.schain.mobile.databinding.ItemHistoryBinding
-import java.text.SimpleDateFormat
-import java.util.*
+import zigzaggroup.schain.mobile.utils.toStandardFormat
 
 class ItemHistoryAdapter(private val states: List<State>) :
     RecyclerView.Adapter<ItemHistoryAdapter.TimeLineViewHolder>() {
@@ -33,8 +32,7 @@ class ItemHistoryAdapter(private val states: List<State>) :
 
         holder.binding.tvTitle.text = state.info
 
-        val df = SimpleDateFormat("dd.MM.yyyy, HH:mm:ss", Locale.US)
-        holder.binding.tvDate.text = df.format(state.date)
+        holder.binding.tvDate.text = state.date.toStandardFormat()
 
         val context = holder.binding.timeline.context
         holder.timeline.marker =

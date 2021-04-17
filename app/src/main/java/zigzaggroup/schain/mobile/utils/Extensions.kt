@@ -9,6 +9,8 @@ import androidx.core.view.isVisible
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.*
 
 fun Context.toast(message: String, duration: Int = Toast.LENGTH_SHORT) {
     GlobalScope.launch(Dispatchers.Main) {
@@ -30,4 +32,9 @@ fun ProgressBar.hide() {
     GlobalScope.launch(Dispatchers.Main) {
         this@hide.isVisible = false
     }
+}
+
+fun Date.toStandardFormat(): String {
+    val df = SimpleDateFormat("dd.MM.yyyy, HH:mm:ss", Locale.US)
+    return df.format(this)
 }
