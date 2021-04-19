@@ -6,6 +6,8 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -37,4 +39,11 @@ fun ProgressBar.hide() {
 fun Date.toStandardFormat(): String {
     val df = SimpleDateFormat("dd.MM.yyyy, HH:mm:ss", Locale.US)
     return df.format(this)
+}
+
+fun <T : RecyclerView.ViewHolder?> RecyclerView.adapter(adapter: RecyclerView.Adapter<T>) {
+    val manager = LinearLayoutManager(this.context, RecyclerView.VERTICAL, false)
+
+    this.layoutManager = manager
+    this.adapter = adapter
 }

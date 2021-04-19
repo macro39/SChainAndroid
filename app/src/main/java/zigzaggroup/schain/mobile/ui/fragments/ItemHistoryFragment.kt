@@ -8,13 +8,12 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import zigzaggroup.schain.mobile.R
 import zigzaggroup.schain.mobile.data.models.State
 import zigzaggroup.schain.mobile.data.models.States
 import zigzaggroup.schain.mobile.databinding.FragmentItemHistoryBinding
 import zigzaggroup.schain.mobile.ui.adapters.ItemHistoryAdapter
+import zigzaggroup.schain.mobile.utils.adapter
 import zigzaggroup.schain.mobile.utils.title
 
 class ItemHistoryFragment : Fragment(R.layout.fragment_item_history) {
@@ -37,11 +36,8 @@ class ItemHistoryFragment : Fragment(R.layout.fragment_item_history) {
 
         activity?.title("${args.itemHistory.firstOrNull()?.product?.name ?: "Item"} history")
 
-        val manager = LinearLayoutManager(this.requireContext(), RecyclerView.VERTICAL, false)
 
-        binding.recyclerView.layoutManager = manager
-        itemHistoryAdapter = ItemHistoryAdapter(itemHistory)
-        binding.recyclerView.adapter = itemHistoryAdapter
+        binding.recyclerView.adapter(ItemHistoryAdapter(itemHistory))
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

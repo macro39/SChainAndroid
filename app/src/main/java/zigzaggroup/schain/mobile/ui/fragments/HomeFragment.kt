@@ -22,6 +22,7 @@ import zigzaggroup.schain.mobile.data.ApiCallHandler
 import zigzaggroup.schain.mobile.data.Resource
 import zigzaggroup.schain.mobile.databinding.FragmentHomeBinding
 import zigzaggroup.schain.mobile.ui.CaptureActivity
+import zigzaggroup.schain.mobile.utils.DataHolder
 import zigzaggroup.schain.mobile.utils.hide
 import zigzaggroup.schain.mobile.utils.show
 import zigzaggroup.schain.mobile.utils.toast
@@ -41,6 +42,11 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentHomeBinding.bind(view)
+
+        val itemId = DataHolder.getItemId()
+        if (itemId?.isBlank() == false) {
+            getItem(itemId)
+        }
 
         binding.btnSearchById.setOnClickListener {
             val id = binding.etId.text ?: ""

@@ -1,7 +1,15 @@
 package zigzaggroup.schain.mobile.ui.fragments
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.os.Bundle
+import android.text.method.ScrollingMovementMethod
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
+import androidx.core.app.ShareCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -15,10 +23,9 @@ import zigzaggroup.schain.mobile.data.ApiCallHandler
 import zigzaggroup.schain.mobile.data.Resource
 import zigzaggroup.schain.mobile.data.models.Item
 import zigzaggroup.schain.mobile.databinding.FragmentItemBinding
-import zigzaggroup.schain.mobile.utils.hide
-import zigzaggroup.schain.mobile.utils.show
-import zigzaggroup.schain.mobile.utils.title
-import zigzaggroup.schain.mobile.utils.toast
+import zigzaggroup.schain.mobile.ui.adapters.PropsAdapter
+import zigzaggroup.schain.mobile.ui.adapters.SubItemsAdapter
+import zigzaggroup.schain.mobile.utils.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -37,19 +44,66 @@ class ItemFragment : Fragment(R.layout.fragment_item) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentItemBinding.bind(view)
 
+        setHasOptionsMenu(true)
+
         item = args.item
 
-        activity?.title(item.product.name)
+        activity?.title("${item.product.name} detail")
 
-        binding.tvResponse.text = item.id
+        binding.tvId.text = item.id
+        binding.tvId.movementMethod = ScrollingMovementMethod()
+
+        binding.tvDescription.text = item.product.description
+        binding.tvDescription.movementMethod = ScrollingMovementMethod()
+
+        binding.tvType.text = item.product.type.type
+        binding.tvType.movementMethod = ScrollingMovementMethod()
 
         binding.btnShowHistory.setOnClickListener {
             getHistory(item.id)
         }
 
-        binding.btnShowAnother.setOnClickListener {
-            getItem("2-18c54724-75d2-4157-8e6c-0998ad3f4327")
+        if (item.product.props.isNotEmpty()) {
+            val subItemsAdapter = PropsAdapter(item.product.props)
+            binding.rvProps.adapter(subItemsAdapter)
+        } else {
+            binding.tvPropsTitle.text = "No parameters"
         }
+
+        if (item.subItems.isNotEmpty()) {
+            val subItemsAdapter = SubItemsAdapter(item.subItems, this::getItem)
+            binding.rvSubItems.adapter(subItemsAdapter)
+        } else {
+            binding.tvSubItemsTitle.text = "No sub items"
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_item, menu)
+
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action_copy -> {
+                val clipboard = this.requireContext()
+                    .getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                val clip: ClipData = ClipData.newPlainText("item id", this.item.id)
+                clipboard.setPrimaryClip(clip)
+
+                this.requireContext().toast("Item id copied to clipboard!")
+            }
+            R.id.action_share -> {
+                ShareCompat.IntentBuilder.from(this.requireActivity())
+                    .setType("text/plain")
+                    .setChooserTitle("Schain item id")
+                    .setText("Check out this awesome item at https://s-chain.tech/item/${this.item.id}")
+                    .startChooser()
+            }
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 
     private fun getItem(id: String) {
