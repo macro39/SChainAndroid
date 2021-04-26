@@ -23,11 +23,27 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyASJ0uRHflOX1T9LGBWHNZgqvhdG6fipHU" />
 
-        <activity android:name=".ui.MainActivity">
+        <activity
+            android:name=".ui.MainActivity"
+            android:taskAffinity="">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <intent-filter
+                android:autoVerify="true"
+                android:label="https://s-chain.tech/item/">
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="s-chain.tech"
+                    android:pathPrefix="/item"
+                    android:scheme="https" />
             </intent-filter>
         </activity>
         <activity
