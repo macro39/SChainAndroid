@@ -16,6 +16,7 @@ import zigzaggroup.schain.mobile.ui.adapters.ItemHistoryAdapter
 import zigzaggroup.schain.mobile.utils.adapter
 import zigzaggroup.schain.mobile.utils.title
 
+
 class ItemHistoryFragment : Fragment(R.layout.fragment_item_history) {
 
     private lateinit var itemHistory: List<State>
@@ -23,8 +24,6 @@ class ItemHistoryFragment : Fragment(R.layout.fragment_item_history) {
     private lateinit var binding: FragmentItemHistoryBinding
 
     private val args: ItemHistoryFragmentArgs by navArgs()
-
-    private lateinit var itemHistoryAdapter: ItemHistoryAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -35,7 +34,6 @@ class ItemHistoryFragment : Fragment(R.layout.fragment_item_history) {
         itemHistory = args.itemHistory.map { it.state }
 
         activity?.title("${args.itemHistory.firstOrNull()?.product?.name ?: "Item"} history")
-
 
         binding.recyclerView.adapter(ItemHistoryAdapter(itemHistory))
     }

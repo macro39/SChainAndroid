@@ -4,7 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.os.Bundle
-import android.view.View
+import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.github.dhaval2404.imagepicker.ImagePicker
@@ -22,10 +22,7 @@ import zigzaggroup.schain.mobile.data.ApiCallHandler
 import zigzaggroup.schain.mobile.data.Resource
 import zigzaggroup.schain.mobile.databinding.FragmentHomeBinding
 import zigzaggroup.schain.mobile.ui.CaptureActivity
-import zigzaggroup.schain.mobile.utils.DataHolder
-import zigzaggroup.schain.mobile.utils.hide
-import zigzaggroup.schain.mobile.utils.show
-import zigzaggroup.schain.mobile.utils.toast
+import zigzaggroup.schain.mobile.utils.*
 import java.util.*
 import javax.inject.Inject
 import kotlin.collections.set
@@ -39,13 +36,26 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     @Inject
     lateinit var apiCallHandler: ApiCallHandler
 
+    @Inject
+    lateinit var prefsProvider: PrefsProvider
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentHomeBinding.bind(view)
 
+        setHasOptionsMenu(true)
+
         val itemId = DataHolder.getItemId()
         if (itemId?.isBlank() == false) {
             getItem(itemId)
+        }
+
+        val user = prefsProvider.loggedUser
+        if (user != null) {
+            binding.tvGreeting.show()
+            binding.tvGreeting.text = "Welcome, ${user.username}"
+        } else {
+            binding.tvGreeting.hide()
         }
 
         binding.btnSearchById.setOnClickListener {
@@ -76,6 +86,47 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     }
                 }
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_home, menu)
+
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val user = prefsProvider.loggedUser
+
+        when (item.itemId) {
+            R.id.action_scan_history -> {
+                if (user != null) {
+                    val action =
+                        HomeFragmentDirections.actionHomeFragmentToScanHistoryFragment()
+                    findNavController().navigate(action)
+                } else {
+                    this.requireContext().toast("Login required!")
+                }
+            }
+            R.id.action_login -> {
+                val action =
+                    HomeFragmentDirections.actionHomeFragmentToLoginFragment()
+                findNavController().navigate(action)
+            }
+            R.id.action_logout -> {
+                if (user != null) {
+                    prefsProvider.setLoggedUser(null)
+                    requireContext().toast("User logged out")
+
+                    val action =
+                        HomeFragmentDirections.actionHomeFragmentSelf()
+                    findNavController().navigate(action)
+                } else {
+                    this.requireContext().toast("Login required!")
+                }
+            }
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 
     private fun getQRFromImage(intent: Intent) {

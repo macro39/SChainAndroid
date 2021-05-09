@@ -24,7 +24,8 @@
 
         <activity
             android:name=".ui.MainActivity"
-            android:taskAffinity="">
+            android:taskAffinity=""
+            android:windowSoftInputMode="stateHidden|adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

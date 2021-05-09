@@ -13,6 +13,7 @@ import zigzaggroup.schain.mobile.R
 import zigzaggroup.schain.mobile.databinding.ActivityMainBinding
 import zigzaggroup.schain.mobile.utils.DataHolder
 
+
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
@@ -38,6 +39,13 @@ class MainActivity : AppCompatActivity() {
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
         handleIntent(intent)
+    }
+
+    fun reinitializeApp() {
+        runOnUiThread {
+            navController.popBackStack(R.id.homeFragment, true)
+            navController.navigate(R.id.homeFragment)
+        }
     }
 
     // TODO fix bug when opening from link when app is already running

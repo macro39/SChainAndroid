@@ -22,6 +22,7 @@ import zigzaggroup.schain.mobile.R
 import zigzaggroup.schain.mobile.data.ApiCallHandler
 import zigzaggroup.schain.mobile.data.Resource
 import zigzaggroup.schain.mobile.data.models.Item
+import zigzaggroup.schain.mobile.data.models.Prop
 import zigzaggroup.schain.mobile.databinding.FragmentItemBinding
 import zigzaggroup.schain.mobile.ui.adapters.PropsAdapter
 import zigzaggroup.schain.mobile.ui.adapters.SubItemsAdapter
@@ -63,12 +64,19 @@ class ItemFragment : Fragment(R.layout.fragment_item) {
             getHistory(item.id)
         }
 
-        if (item.product.props.isNotEmpty()) {
-            val subItemsAdapter = PropsAdapter(item.product.props)
-            binding.rvProps.adapter(subItemsAdapter)
-        } else {
-            binding.tvPropsTitle.text = "No parameters"
-        }
+        val propsAdapter = PropsAdapter(
+            listOf(
+                Prop(
+                    "Serial number",
+                    item.serialNumber.toString()
+                ),
+                Prop(
+                    "Product number",
+                    item.product.code
+                )
+            ) + item.product.props
+        )
+        binding.rvProps.adapter(propsAdapter)
 
         if (item.subItems.isNotEmpty()) {
             val subItemsAdapter = SubItemsAdapter(item.subItems, this::getItem)

@@ -2,7 +2,7 @@ package zigzaggroup.schain.mobile.utils
 
 import android.app.Activity
 import android.content.Context
-import android.widget.ProgressBar
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
@@ -24,13 +24,13 @@ fun Activity.title(title: String) {
     (this as AppCompatActivity).supportActionBar?.title = title
 }
 
-fun ProgressBar.show() {
+fun View.show() {
     GlobalScope.launch(Dispatchers.Main) {
         this@show.isVisible = true
     }
 }
 
-fun ProgressBar.hide() {
+fun View.hide() {
     GlobalScope.launch(Dispatchers.Main) {
         this@hide.isVisible = false
     }
@@ -46,4 +46,8 @@ fun <T : RecyclerView.ViewHolder?> RecyclerView.adapter(adapter: RecyclerView.Ad
 
     this.layoutManager = manager
     this.adapter = adapter
+}
+
+fun String.toToken(): String {
+    return "Bearer $this"
 }

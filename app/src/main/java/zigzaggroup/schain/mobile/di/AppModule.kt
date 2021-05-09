@@ -1,6 +1,7 @@
 package zigzaggroup.schain.mobile.di
 
 import android.content.Context
+import android.content.SharedPreferences
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -12,6 +13,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 import timber.log.Timber
 import zigzaggroup.schain.mobile.BuildConfig
 import zigzaggroup.schain.mobile.data.ItemApi
+import zigzaggroup.schain.mobile.di.qualifiers.EncryptedPrefs
+import zigzaggroup.schain.mobile.utils.Constants.SHARED_PREFS
 import zigzaggroup.schain.mobile.utils.NetworkConnectionInterceptor
 import javax.inject.Singleton
 
@@ -34,4 +37,10 @@ object AppModule {
             .build()
             .create(ItemApi::class.java)
     }
+
+    @Provides
+    @EncryptedPrefs
+    @Singleton
+    fun encryptedDefaultSharedPreferences(@ApplicationContext context: Context): SharedPreferences =
+        context.getSharedPreferences(SHARED_PREFS, 0)
 }

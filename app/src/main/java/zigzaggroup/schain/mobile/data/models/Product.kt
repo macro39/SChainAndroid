@@ -8,6 +8,7 @@ import java.util.*
 data class Product(
     val id: Int,
     val name: String,
+    val code: String,
     val description: String,
     val type: Type,
     val createdBy: String,
