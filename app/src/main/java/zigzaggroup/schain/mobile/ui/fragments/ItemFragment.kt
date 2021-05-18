@@ -68,11 +68,11 @@ class ItemFragment : Fragment(R.layout.fragment_item) {
             listOf(
                 Prop(
                     "Serial number",
-                    item.serialNumber.toString()
+                    if (item.serialNumber.isBlank()) "-" else item.serialNumber
                 ),
                 Prop(
                     "Product number",
-                    item.product.code
+                    item.product.code ?: "-"
                 )
             ) + item.product.props
         )

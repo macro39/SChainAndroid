@@ -21,6 +21,6 @@ interface ItemApi {
         @Header("Authorization") token: String
     ): Response<ItemHistory>
 
-    @GET("/api/client/item/scanned")
+    @GET("api/client/item/scanned")
     suspend fun getScanHistory(@Header("Authorization") token: String): Response<ScanHistoryBase>
 }
